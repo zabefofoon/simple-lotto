@@ -49,6 +49,13 @@ import { NumberManager } from '~/models/Number'
 import { count } from '~/models/counterAnimation'
 import { getEventTargetValue } from '~/utils/util'
 
+useSeoMeta({
+  title: 'Simple Lotto',
+  ogTitle: 'Simple Lotto',
+  description: 'Simple lotto number generator',
+  ogDescription: 'Simple lotto number generator',
+})
+
 const numberElement = ref<HTMLElement[]>()
 
 const lottoList = reactive(LottoManager.of())
