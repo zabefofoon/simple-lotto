@@ -10,17 +10,19 @@
       style="height: 100svh">
       <div class="mb-auto"></div>
       <h1 class="text-4xl font-bold text-slate-600 uppercase">Simple Lotto</h1>
-      <select
-        :value="lottoList.selectedLottoValue"
-        class="px-2 py-1 mb-4 | outline-0 | border rounded-md | shadow-md bg-slate-600 text-white capitalize"
-        @change="changeLotto">
-        <option
-          v-for="lotto in lottoList.list"
-          :key="lotto.value"
-          :value="lotto.value"
-          :label="lotto.label"
-          class="capitalize notranslate bg-white"></option>
-      </select>
+      <ClientOnly>
+        <select
+          :value="lottoList.selectedLottoValue"
+          class="px-2 py-1 mb-4 | outline-0 | border rounded-md | shadow-md bg-slate-600 text-white capitalize"
+          @change="changeLotto">
+          <option
+            v-for="lotto in lottoList.list"
+            :key="lotto.value"
+            :value="lotto.value"
+            :label="lotto.label"
+            class="capitalize notranslate bg-white"></option>
+        </select>
+      </ClientOnly>
       <div
         v-if="numberManager.numbers.length"
         class="flex flex-wrap justify-center gap-x-1 gap-y-2 | mb-4">
@@ -42,7 +44,9 @@
         Generate
       </button>
       <div v-if="!closedAd" class="relative | w-[320px] | text-center">
-        <button class="absolute top-1 left-1 | flex | bg-white" @click="closeAd">
+        <button
+          class="absolute top-1 left-1 | flex | bg-white"
+          @click="closeAd">
           <i class="icon icon-close text-sm"></i>
         </button>
         <iframe
@@ -52,7 +56,9 @@
           src="https://mtab.clickmon.co.kr/pop/wp_m_320.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1138899%7C%5E%7CAdver_M_1046207&mon_rf=REFERRER_URL&mon_direct_url=URLENCODE_PASSBACK_INPUT"
           frameborder="0"
           scrolling="no"></iframe>
-          <span class="text-sm text-slate-500">Clicking on the advertisement brings greater fortune.</span>
+        <span class="text-sm text-slate-500">
+          Clicking on the advertisement brings greater fortune.
+        </span>
       </div>
       <p class="text-sm text-slate-500 | mt-auto">
         Lotto is a doorway to fulfilling dreams. Wishing that your lotto ticket
@@ -74,6 +80,9 @@ useSeoMeta({
   ogDescription: 'Simple lotto number generator',
 })
 
+const router = useRouter()
+const route = useRoute()
+
 const numberElement = ref<HTMLElement[]>()
 
 const lottoList = reactive(LottoManager.of())
@@ -81,7 +90,9 @@ const numberManager = reactive(NumberManager.of(lottoList))
 
 const changeLotto = (event: Event) => {
   numberManager.emptyNumbers()
-  lottoList.selectLottoValue(`${getEventTargetValue(event)}`)
+  const value = `${getEventTargetValue(event)}`
+  lottoList.selectLottoValue(value)
+  router.replace({ query: { lotto: value } })
 }
 
 const generate = () => {
@@ -111,4 +122,8 @@ setTimeout(function () {
     cache: 'no-store',
   }).catch(() => detectAdBlocker(true))
 }, 1000)
+
+onMounted(() => {
+  if (route.query.lotto) lottoList.selectLottoValue(String(route.query.lotto))
+})
 </script>
