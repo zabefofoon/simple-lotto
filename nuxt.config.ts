@@ -4,7 +4,7 @@ const path = require('path')
 export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: true,
-  css: ['~/assets/style/style.scss'],
+  css: ['~/assets/css/style.scss'],
   postcss: {
     plugins: {
       tailwindcss: {},
