@@ -4,6 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('./icons.scss');
+
 * {
   font-family: 'Open Sans', sans-serif;
   color: rgb(30 41 59 / var(--tw-bg-opacity));

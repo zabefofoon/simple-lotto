@@ -1,0 +1,21 @@
+@mixin generateIcon($src) {
+  -webkit-mask-image: url($src);
+  mask-image: url($src);
+}
+
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  background-color: currentColor;
+}
+
+.icon-close {
+  @include generateIcon(
+    'https://api.iconify.design/material-symbols/close.svg'
+  );
+}

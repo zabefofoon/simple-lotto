@@ -1,4 +1,9 @@
 <template>
+  <div
+    v-if="detectedAdBlocker"
+    class="fixed top-0 left-0 z-10 | w-screen h-screen | bg-white | flex items-center justify-center">
+    Please disable the ad blocker.
+  </div>
   <div class="w-full flex items-center justify-center">
     <div
       class="flex flex-col items-center justify-center gap-8 | w-full max-w-[400px] | px-4 py-8"
@@ -25,6 +30,19 @@
         @click="generate">
         Generate
       </button>
+      <div v-if="!closedAd" class="-mt-5 relative">
+        <button class="absolute top-1 left-1 | flex | bg-white" @click="closeAd">
+          <i class="icon icon-close text-sm"></i>
+        </button>
+        <iframe
+          width="320"
+          height="50"
+          allowtransparency="true"
+          src="https://mtab.clickmon.co.kr/pop/wp_m_320.php?PopAd=CM_M_1003067%7C%5E%7CCM_A_1138899%7C%5E%7CAdver_M_1046207&mon_rf=REFERRER_URL&mon_direct_url=URLENCODE_PASSBACK_INPUT"
+          frameborder="0"
+          scrolling="no"></iframe>
+          <span class="text-sm text-slate-500">Clicking on the advertisement brings greater fortune.</span>
+      </div>
       <select
         :value="lottoList.selectedLottoValue"
         class="px-2 py-1 | outline-0 | bg-white | text-slate-500 capitalize"
@@ -79,4 +97,18 @@ const generate = () => {
     )
   )
 }
+
+const closedAd = ref(false)
+const closeAd = () => (closedAd.value = true)
+
+const detectedAdBlocker = ref(false)
+const detectAdBlocker = (value: boolean) => (detectedAdBlocker.value = value)
+
+setTimeout(function () {
+  fetch('https://www3.doubleclick.net', {
+    method: 'HEAD',
+    mode: 'no-cors',
+    cache: 'no-store',
+  }).catch(() => detectAdBlocker(true))
+}, 1000)
 </script>
