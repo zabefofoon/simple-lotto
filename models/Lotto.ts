@@ -1,4 +1,4 @@
-export class LottoClass {
+export class Lotto {
   constructor(
     public readonly label: string,
     public readonly value: string,
@@ -16,7 +16,7 @@ export class LottoClass {
     basicRange: number,
     specialRange: number
   ) {
-    return new LottoClass(
+    return new Lotto(
       label,
       value,
       basicLength,
@@ -27,39 +27,32 @@ export class LottoClass {
   }
 }
 
-export const LottoList = [
-  LottoClass.of('PowerBall', 'powerBall', 5, 1, 69, 26),
-  LottoClass.of('Megamillion', 'megamillion', 5, 1, 70, 25),
-  LottoClass.of('Eurojackpot', 'eurojackpot', 5, 2, 50, 12),
-  LottoClass.of('EuroMillions', 'euroMillions', 5, 2, 50, 11),
-  LottoClass.of('Superenalotto', 'superenalotto', 6, 2, 90, 90),
-  LottoClass.of('La Primitiva', 'laPrimitiva', 6, 1, 49, 49),
-  LottoClass.of('Lotto China', 'lottoChina', 6, 1, 50, 50),
-  LottoClass.of('Lotto India', 'lottoIndia', 6, 1, 50, 50),
-  LottoClass.of('Lotto Korea', 'lottoKoea', 6, 1, 45, 45),
-]
-
-export class LottoList2 {
+export class LottoManager {
   public readonly list = [
-    LottoClass.of('PowerBall', 'powerBall', 5, 1, 69, 26),
-    LottoClass.of('Megamillion', 'megamillion', 5, 1, 70, 25),
-    LottoClass.of('Eurojackpot', 'eurojackpot', 5, 2, 50, 12),
-    LottoClass.of('EuroMillions', 'euroMillions', 5, 2, 50, 11),
-    LottoClass.of('Superenalotto', 'superenalotto', 6, 2, 90, 90),
-    LottoClass.of('La Primitiva', 'laPrimitiva', 6, 1, 49, 49),
-    LottoClass.of('Lotto China', 'lottoChina', 6, 1, 50, 50),
-    LottoClass.of('Lotto India', 'lottoIndia', 6, 1, 50, 50),
-    LottoClass.of('Lotto Korea', 'lottoKoea', 6, 1, 45, 45),
+    Lotto.of('PowerBall', 'powerBall', 5, 1, 69, 26),
+    Lotto.of('Megamillion', 'megamillion', 5, 1, 70, 25),
+    Lotto.of('Eurojackpot', 'eurojackpot', 5, 2, 50, 12),
+    Lotto.of('EuroMillions', 'euroMillions', 5, 2, 50, 11),
+    Lotto.of('Superenalotto', 'superenalotto', 6, 2, 90, 90),
+    Lotto.of('La Primitiva', 'laPrimitiva', 6, 1, 49, 49),
+    Lotto.of('Lotto China', 'lottoChina', 6, 1, 50, 50),
+    Lotto.of('Lotto India', 'lottoIndia', 6, 1, 50, 50),
+    Lotto.of('Lotto Korea', 'lottoKoea', 6, 1, 45, 45),
   ]
 
   public selectedLottoValue = this.list[0].value
 
-  selectLottoValue(lottoValue: string) {
-    this.selectedLottoValue = lottoValue
-  }
-
   get selectedLotto() {
     return this.findLottoClass(this.selectedLottoValue)
+  }
+
+  get placeLength() {
+    const { basicLength, specialLength } = this.selectedLotto
+    return basicLength + specialLength
+  }
+
+  selectLottoValue(lottoValue: string) {
+    this.selectedLottoValue = lottoValue
   }
 
   findLottoClass(lottoValue: string) {
@@ -70,16 +63,11 @@ export class LottoList2 {
     return this.placeLength - this.selectedLotto.specialLength < index + 1
   }
 
-  get placeLength() {
-    const { basicLength, specialLength } = this.selectedLotto
-    return basicLength + specialLength
-  }
-
   static getRandomNumber(range: number) {
     return Math.floor(Math.random() * range) + 1
   }
 
   static of() {
-    return new LottoList2()
+    return new LottoManager()
   }
 }
