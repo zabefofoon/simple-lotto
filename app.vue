@@ -6,13 +6,24 @@
   </div>
   <div class="w-full flex items-center justify-center">
     <div
-      class="flex flex-col items-center justify-center gap-8 | w-full max-w-[400px] | px-4 py-8"
+      class="flex flex-col items-center justify-center gap-4 | w-full max-w-[400px] | px-4 py-8"
       style="height: 100svh">
       <div class="mb-auto"></div>
       <h1 class="text-4xl font-bold text-slate-600 uppercase">Simple Lotto</h1>
+      <select
+        :value="lottoList.selectedLottoValue"
+        class="px-2 py-1 mb-4 | outline-0 | border rounded-md | shadow-md bg-slate-600 text-white capitalize"
+        @change="changeLotto">
+        <option
+          v-for="lotto in lottoList.list"
+          :key="lotto.value"
+          :value="lotto.value"
+          :label="lotto.label"
+          class="capitalize notranslate bg-white"></option>
+      </select>
       <div
         v-if="numberManager.numbers.length"
-        class="flex flex-wrap justify-center gap-x-1 gap-y-2">
+        class="flex flex-wrap justify-center gap-x-1 gap-y-2 | mb-4">
         <div
           v-for="(number, index) in numberManager.numbers"
           :key="index"
@@ -30,7 +41,7 @@
         @click="generate">
         Generate
       </button>
-      <div v-if="!closedAd" class="-mt-5 relative | w-[320px] | text-center">
+      <div v-if="!closedAd" class="relative | w-[320px] | text-center">
         <button class="absolute top-1 left-1 | flex | bg-white" @click="closeAd">
           <i class="icon icon-close text-sm"></i>
         </button>
@@ -43,17 +54,6 @@
           scrolling="no"></iframe>
           <span class="text-sm text-slate-500">Clicking on the advertisement brings greater fortune.</span>
       </div>
-      <select
-        :value="lottoList.selectedLottoValue"
-        class="px-2 py-1 | outline-0 | bg-white | text-slate-500 capitalize"
-        @change="changeLotto">
-        <option
-          v-for="lotto in lottoList.list"
-          :key="lotto.value"
-          :value="lotto.value"
-          :label="lotto.label"
-          class="capitalize notranslate"></option>
-      </select>
       <p class="text-sm text-slate-500 | mt-auto">
         Lotto is a doorway to fulfilling dreams. Wishing that your lotto ticket
         is filled with numbers brimming with good fortune!
