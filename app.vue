@@ -30,7 +30,7 @@
         @click="generate">
         Generate
       </button>
-      <div v-if="!closedAd" class="-mt-5 relative">
+      <div v-if="!closedAd" class="-mt-5 relative | w-[320px] | text-center">
         <button class="absolute top-1 left-1 | flex | bg-white" @click="closeAd">
           <i class="icon icon-close text-sm"></i>
         </button>
