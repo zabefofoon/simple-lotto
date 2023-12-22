@@ -5,6 +5,9 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: true,
   css: ['~/assets/css/style.scss'],
+  modules: [
+    'nuxt-gtag'
+  ],
   gtag: {
     id: 'G-KE4RWDCQS2'
   },
