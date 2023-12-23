@@ -20,7 +20,7 @@
             :key="lotto.value"
             :value="lotto.value"
             :label="lotto.label"
-            class="capitalize notranslate">{{ lotto.label }}</option>
+            class="capitalize notranslate bg-white text-slate-600">{{ lotto.label }}</option>
         </select>
       </ClientOnly>
       <div
