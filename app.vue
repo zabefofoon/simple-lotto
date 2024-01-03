@@ -1,4 +1,5 @@
 <template>
+  <VitePwaManifest/>
   <div
     v-if="detectedAdBlocker"
     class="fixed top-0 left-0 z-10 | w-screen h-screen | bg-white | flex items-center justify-center">
@@ -125,5 +126,7 @@ setTimeout(function () {
 
 onMounted(() => {
   if (route.query.lotto) lottoList.selectLottoValue(String(route.query.lotto))
+
+  navigator.serviceWorker.register('/sw.js')
 })
 </script>

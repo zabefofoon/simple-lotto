@@ -6,8 +6,55 @@ export default defineNuxtConfig({
   ssr: true,
   css: ['~/assets/css/style.scss'],
   modules: [
-    'nuxt-gtag'
+    'nuxt-gtag',
+    '@vite-pwa/nuxt'
   ],
+  pwa: {
+    manifest: {
+      id: '/simple-lotto',
+      name: 'SimpleLotto',
+      short_name: 'Simple Lotto',
+      description: 'Simple Lotto PWA',
+      screenshots: [
+        {
+          src: 'screenshot.png',
+          sizes: '490x945',
+          label: 'screenshot',
+          form_factor: 'narrow',
+          type: 'image/png'
+        },
+        {
+          src: 'screenshot.png',
+          sizes: '490x945',
+          label: 'screenshot',
+          form_factor: 'wide',
+          type: 'image/png'
+        }
+      ],
+      icons: [
+        {
+          src: '144-144.png',
+          sizes: '144x144',
+          type: 'image/png'
+        },
+        {
+          src: '192-192.png',
+          sizes: '192x192',
+          type: 'image/png'
+        },
+        {
+          src: '512-512.png',
+          sizes: '512x512',
+          type: 'image/png'
+        }
+      ],
+      display: 'standalone'
+    },
+    devOptions: {
+      enabled: true,
+      type: 'module'
+    }
+  },
   gtag: {
     id: 'G-KE4RWDCQS2'
   },
